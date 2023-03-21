@@ -1,3 +1,5 @@
+# Autocomplete functionality
+
 def autocomplete(string, options):
     """Checks if the words in a list start with the string given and returns a new list with matching words.
     Required Arguments: string, list of words
@@ -25,7 +27,7 @@ def display_numbered_options(numbered_options):
     return display
 
 
-# TESTING
+# Testing Autocomplete
 
 #selection = autocomplete("hell", ["hello", "hell", "help", "ginger", "love", "held"]) # returns a list
 #print(selection)
@@ -35,3 +37,14 @@ def display_numbered_options(numbered_options):
 
 #show = display_numbered_options(choices) # returns a list
 #print(show)
+
+
+# Data
+
+boardgame_types = ["family", "dexterity", "party", "abstract", "strategic", "thematic", "euro", "war", "dice", "cards", "deck building", "bluffing", "cooperative", "children's", "fighting", "area control", "legacy", "drafting", "memory", "miniatures", "engine building", "educational", "roleplaying"]
+
+boardgame_collection = {
+    "dict_explanation" : [["tags/categories/types"], "minimum number of players", "maximum number of players", "average playing time in minutes", "minimum player age"]
+    "Braendi Dog" : [["family", "cooperative"], 3, 6, 60, 8]
+}
+
