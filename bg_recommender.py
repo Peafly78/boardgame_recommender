@@ -44,7 +44,7 @@ def display_numbered_options(numbered_options):
 boardgame_types = ["family", "dexterity", "party", "abstract", "strategic", "thematic", "euro", "war", "dice", "cards", "deck building", "bluffing", "cooperative", "children", "fighting", "area control", "legacy", "drafting", "memory", "miniatures", "engine building", "educational", "roleplaying"]
 
 boardgame_collection = {
-    "dict_explanation" : [["tags/categories/types"], "minimum number of players", "maximum number of players", "average playing time in minutes", "minimum player age"]
+    "dict_explanation" : [["tags/categories/types"], "minimum number of players", "maximum number of players", "average playing time in minutes", "minimum player age"],
     "Braendi Dog" : [["family", "cooperative"], 3, 6, 60, 8],
     "Ligretto" : [["cards", "abstract", "dexterity"], 2, 4, 20, 8],
     "Ciao Giuseppe" : [["cards", "abstract"], 2, 6, 20, 6],
@@ -52,4 +52,24 @@ boardgame_collection = {
     "Spinderella" : [["family", "thematic"], 2, 4, 20, 6],
     "Ligretto Dice" : [["dice", "abstract", "dexterity"], 2, 6, 10, 8]
 }
+
+
+# User Input
+
+print("Welcome to the boardgame recommender!")
+input_collection = list()
+num_players = input("\nI need some data to give you a playing recommendation:\nHow many people will be playing?\n> ")
+while len(num_players) != 1:
+    num_players = input("\nPlease, enter a number between 1 and 9.\n> ")
+while not isinstance(num_players, int):
+    if num_players in "123456789":
+        num_players = int(num_players)
+    else:
+        num_players = input("\nPlease, enter a valid number between 1 and 9.\n> ")
+
+
+# Testing
+
+print(num_players, type(num_players))
+
 
