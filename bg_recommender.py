@@ -69,7 +69,7 @@ while not isinstance(num_players, int):
         num_players = input("\nPlease, enter a valid number between 1 and 9.\n> ")
 input_collection.append(num_players)
 
-youngest = input("\nHow old is the youngest player?")
+youngest = input("\nHow old is the youngest player?\n> ")
 while not isinstance(youngest, int):
     try:
         youngest = int(youngest)
@@ -84,6 +84,27 @@ while not isinstance(playing_time, int):
     except:
         playing_time = input("\nPlease enter a valid number, e.g. 30 for half an hour of playing time.\n> ")
 input_collection.append(playing_time)
+
+game_type = input("\nWhat type of boardgame would you like to play? Enter the first character(s) and hit enter to have some options displayed.\n> ")
+auto_complete_options = autocomplete(game_type, boardgame_types)
+while not auto_complete_options:
+    game_type = input("Sorry, no options available for the characters you entered.\nPlease try again.\n> ")
+    auto_complete_options = autocomplete(game_type, boardgame_types)
+numbered_options = number_options(auto_complete_options)
+options_display = display_numbered_options(numbered_options)
+print(options_display) 
+
+choice = input("Please, type the number next to the boardgame type you would like to play.\n> ")
+while choice not in numbered_options.keys():
+    while not isinstance(choice, int):
+        try:
+            choice = int(choice)
+        except:
+            choice = input("\nPlease enter a valid number, displayed next to the desired boardgame type.\n> ")
+input_collection.append(choice)
+
+# selected_type = numbered_options[choice]
+# input_collection.append(selected_type)
 
 
 # Testing
