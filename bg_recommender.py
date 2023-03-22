@@ -77,6 +77,14 @@ while not isinstance(youngest, int):
         youngest = input("\nPlease enter a valid number between 1 and 99.\n> ")
 input_collection.append(youngest)
 
+playing_time = input("\nHow long should the game approximately take to play?\nPlease enter the time in minutes.\n> ")
+while not isinstance(playing_time, int):
+    try:
+        playing_time = int(playing_time)
+    except:
+        playing_time = input("\nPlease enter a valid number, e.g. 30 for half an hour of playing time.\n> ")
+input_collection.append(playing_time)
+
 
 # Testing
 
