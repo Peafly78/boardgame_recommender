@@ -58,6 +58,7 @@ boardgame_collection = {
 
 print("Welcome to the boardgame recommender!")
 input_collection = list()
+
 num_players = input("\nI need some data to give you a playing recommendation:\nHow many people will be playing?\n> ")
 while len(num_players) != 1:
     num_players = input("\nPlease, enter a number between 1 and 9.\n> ")
@@ -66,10 +67,19 @@ while not isinstance(num_players, int):
         num_players = int(num_players)
     else:
         num_players = input("\nPlease, enter a valid number between 1 and 9.\n> ")
+input_collection.append(num_players)
+
+youngest = input("\nHow old is the youngest player?")
+while not isinstance(youngest, int):
+    try:
+        youngest = int(youngest)
+    except:
+        youngest = input("\nPlease enter a valid number between 1 and 99.\n> ")
+input_collection.append(youngest)
 
 
 # Testing
 
-print(num_players, type(num_players))
+print(input_collection)
 
 
