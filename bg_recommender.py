@@ -94,14 +94,21 @@ numbered_options = number_options(auto_complete_options)
 options_display = display_numbered_options(numbered_options)
 print(options_display) 
 
+selected_type = None
 choice = input("Please, type the number next to the boardgame type you would like to play.\n> ")
-while choice not in numbered_options.keys():
-    while not isinstance(choice, int):
+while not isinstance(choice, int):
+    try:
+        choice = int(choice)
+    except ValueError:
+        choice = input("\nPlease enter a valid number, displayed next to the desired boardgame type.\n> ")
+    else:
         try:
-            choice = int(choice)
-        except:
-            choice = input("\nPlease enter a valid number, displayed next to the desired boardgame type.\n> ")
-input_collection.append(choice)
+            selected_type = numbered_options[choice]
+        except KeyError:
+            choice = input("\nThis is not a valid option. Please, try again.\n> ")
+
+
+input_collection.append(selected_type)
 
 # selected_type = numbered_options[choice]
 # input_collection.append(selected_type)
