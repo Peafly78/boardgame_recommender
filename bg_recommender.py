@@ -44,15 +44,33 @@ def display_numbered_options(numbered_options):
 boardgame_types = ["family", "dexterity", "party", "abstract", "strategic", "thematic", "euro", "war", "dice", "cards", "deck building", "bluffing", "cooperative", "children", "fighting", "area control", "legacy", "drafting", "memory", "miniatures", "engine building", "educational", "roleplaying"]
 
 boardgame_collection = {
-    "dict_explanation" : [["tags/categories/types"], "minimum number of players", "maximum number of players", "average playing time in minutes", "minimum player age"],
-    "Braendi Dog" : [["family", "cooperative"], 3, 6, 60, 8],
-    "Ligretto" : [["cards", "abstract", "dexterity"], 2, 4, 20, 8],
-    "Ciao Giuseppe" : [["cards", "abstract"], 2, 6, 20, 6],
-    "Monopoly" : [["engine building", "strategic"], 2, 6, 120, 10],
+    "Braendi Dog" : [["family", "cooperative"], 3, 6, 45, 8],
+    "Ligretto" : [["cards", "abstract", "dexterity"], 2, 4, 15, 8],
+    "Ciao Giuseppe" : [["cards", "abstract"], 2, 6, 25, 6],
+    "Monopoly" : [["engine building", "strategic"], 2, 6, 30, 10],
     "Spinderella" : [["family", "thematic"], 2, 4, 20, 6],
     "Ligretto Dice" : [["dice", "abstract", "dexterity"], 2, 6, 10, 8]
 }
+# Dictionary values: [[tags/categories], minimum_players, maximum_players, time in minutes, age]
 
+
+
+# Further function definitions
+
+def filter_boardgame_collection(user_input):
+    boardgame_results = dict()
+    for key, value in boardgame_collection.items():
+        if user_input[0] >= int(boardgame_collection[key][1]) and user_input[0] <= int(boardgame_collection[key][2]):
+            boardgame_results[key] = value
+    for key, value in boardgame_results.items():
+        if not user_input[1] >= int(value[4]):
+            boardgame_results[key] = "deleted"
+    #for key, value in boardgame_results.items():
+     #   if value[3] < user_input[2]*0.75 or value[3] > user_input[2]*1.25:
+      #      boardgame_results[key] = "deleted"    
+    return [key  for key, value in boardgame_results.items() if "deleted" not in value]
+
+            
 
 # User Input
 
@@ -110,12 +128,20 @@ while not isinstance(choice, int):
 
 input_collection.append(selected_type)
 
-# selected_type = numbered_options[choice]
-# input_collection.append(selected_type)
+print(f"So, you would like to play a {selected_type} game that takes approximately {playing_time} minutes.\nThere are {num_players} people playing and the youngest player is {youngest} years old.")
+print()
+print("Here are your results:")
+print()
+print(22 * "*")
+print()
+print("Result of sorting function to come here.")
+
 
 
 # Testing
 
+print()
 print(input_collection)
+print(filter_boardgame_collection(input_collection))
 
 
