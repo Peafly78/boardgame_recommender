@@ -62,13 +62,16 @@ def filter_boardgame_collection(user_input):
     for key, value in boardgame_collection.items():
         if user_input[0] >= int(boardgame_collection[key][1]) and user_input[0] <= int(boardgame_collection[key][2]):
             boardgame_results[key] = value
-    for key, value in boardgame_results.items():
+    copy_of_results = dict(boardgame_results)
+    for key, value in copy_of_results.items():
+        if value[3] < user_input[2]*0.75 or value[3] > user_input[2]*1.25:
+            del boardgame_results[key]
+    copy_of_results = dict(boardgame_results)
+    for key, value in copy_of_results.items():
         if not user_input[1] >= int(value[4]):
-            boardgame_results[key] = "deleted"
-    #for key, value in boardgame_results.items():
-     #   if value[3] < user_input[2]*0.75 or value[3] > user_input[2]*1.25:
-      #      boardgame_results[key] = "deleted"    
-    return [key  for key, value in boardgame_results.items() if "deleted" not in value]
+            del boardgame_results[key]
+    return list(boardgame_results)
+
 
             
 
@@ -134,14 +137,17 @@ print("Here are your results:")
 print()
 print(22 * "*")
 print()
-print("Result of sorting function to come here.")
-
+result = filter_boardgame_collection(input_collection)
+if not result:
+    print("Sorry, couldn't find a game matching your input.")
+else:
+    print("You can play:")
+    for game in result:
+        print("*", game)
 
 
 # Testing
 
-print()
-print(input_collection)
-print(filter_boardgame_collection(input_collection))
+
 
 
