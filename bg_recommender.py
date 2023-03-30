@@ -64,22 +64,18 @@ def display_numbered_options(numbered_options):
 
 # Further function definitions
 
-def filter_boardgame_collection(user_input):
-    boardgame_results = dict()
-    for key, value in boardgame_collection.items():
-        if user_input[0] >= int(boardgame_collection[key][1]) and user_input[0] <= int(boardgame_collection[key][2]):
-            boardgame_results[key] = value
-    copy_of_results = dict(boardgame_results)
-    for key, value in copy_of_results.items():
-        if value[3] < user_input[2]*0.75 or value[3] > user_input[2]*1.25:
-            del boardgame_results[key]
-    copy_of_results = dict(boardgame_results)
-    for key, value in copy_of_results.items():
-        if not user_input[1] >= int(value[4]):
-            del boardgame_results[key]
-    return list(boardgame_results)
+def check_for_criteria(value_list, user_input):
+    return (user_input[0] >= value_list[2] and user_input[0] <= value_list[3]) and (value_list[4] > user_input[2]*0.7 and value_list[4] < user_input[2]*1.3) and (user_input[1] >= value_list[5])
 
-
+def filter_linked_list(ll, user_input):
+    bg_results = list()
+    current_node = ll.head_node
+    while current_node:
+        if current_node.get_value() != None:
+            if check_for_criteria(current_node.get_value(), user_input):
+                bg_results.append(current_node.get_value())
+        current_node = current_node.get_next_node()
+    return bg_results
             
 
 # User Input
@@ -144,13 +140,14 @@ print("Here are your results:")
 print()
 print(22 * "*")
 print()
-result = filter_boardgame_collection(input_collection)
+
+result = filter_linked_list(bg_collection, input_collection)
 if not result:
-    print("Sorry, couldn't find a game matching your input.")
+    print("Sorry, no games found that fit your criteria.")
 else:
     print("You can play:")
     for game in result:
-        print("*", game)
+        print("*", game[0])
 
 
 # Testing
