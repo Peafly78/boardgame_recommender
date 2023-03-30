@@ -1,3 +1,8 @@
+# Import games data
+
+from games_data import boardgame_collection, boardgame_types
+
+
 # Autocomplete functionality
 
 def autocomplete(string, options):
@@ -53,6 +58,7 @@ boardgame_collection = {
 }
 # Dictionary values: [[tags/categories], minimum_players, maximum_players, time in minutes, age]
 
+# Input data
 
 
 # Further function definitions
