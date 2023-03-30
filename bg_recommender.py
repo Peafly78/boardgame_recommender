@@ -1,6 +1,23 @@
 # Import games data
 
 from games_data import boardgame_collection, boardgame_types
+from linkedlist import Node, LinkedList
+
+# Insert data into LinkedList datastructure
+
+bg_types = LinkedList()
+for type in boardgame_types:
+    bg_types.insert_beginning(type)
+
+bg_collection = LinkedList()
+for game in boardgame_collection:
+    bg_collection.insert_beginning(game)
+
+# Testing data structure
+
+#print(bg_types.stringify_list())
+#print()
+#print(bg_collection.stringify_list())
 
 
 # Autocomplete functionality
@@ -43,22 +60,6 @@ def display_numbered_options(numbered_options):
 #show = display_numbered_options(choices) # returns a list
 #print(show)
 
-
-# Data
-
-boardgame_types = ["family", "dexterity", "party", "abstract", "strategic", "thematic", "euro", "war", "dice", "cards", "deck building", "bluffing", "cooperative", "children", "fighting", "area control", "legacy", "drafting", "memory", "miniatures", "engine building", "educational", "roleplaying"]
-
-boardgame_collection = {
-    "Braendi Dog" : [["family", "cooperative"], 3, 6, 45, 8],
-    "Ligretto" : [["cards", "abstract", "dexterity"], 2, 4, 15, 8],
-    "Ciao Giuseppe" : [["cards", "abstract"], 2, 6, 25, 6],
-    "Monopoly" : [["engine building", "strategic"], 2, 6, 30, 10],
-    "Spinderella" : [["family", "thematic"], 2, 4, 20, 6],
-    "Ligretto Dice" : [["dice", "abstract", "dexterity"], 2, 6, 10, 8]
-}
-# Dictionary values: [[tags/categories], minimum_players, maximum_players, time in minutes, age]
-
-# Input data
 
 
 # Further function definitions

@@ -25,4 +25,14 @@ class LinkedList:
         new_node.set_next_node(self.head_node)
         self.head_node = new_node
     
-    
+    def stringify_list(self):
+        string_list = ""
+        current_node = self.head_node
+        if current_node:
+            string_list += "HEAD =>\n=> "
+        while current_node:
+            if current_node.get_value() != None:
+                string_list += str(current_node.get_value()) + "\n=> "                
+            current_node = current_node.get_next_node()
+        string_list += "TAIL"
+        return string_list
