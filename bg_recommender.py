@@ -79,15 +79,16 @@ def filter_linked_list(ll, user_input):
 
 def get_user_input(question, min, max):
     user_input = input(question)
-    try:
-        user_input = int(user_input)
-    except:
-        user_input = input(f"Please, enter a valid number between {min} and {max}.")
-    else:
+    while not isinstance(user_input, int):
         try:
-            user_input >= min and user_input <= max
+            user_input = int(user_input)
         except:
             user_input = input(f"Please, enter a valid number between {min} and {max}.")
+        else:
+            try:
+                user_input in range(min, max+1) == True
+            except:
+                user_input = input(f"Please, enter a valid number between {min} and {max}.")
     return user_input
 
 # User Input
@@ -167,7 +168,5 @@ else:
 
 
 # Testing
-
-
 
 
