@@ -76,7 +76,19 @@ def filter_linked_list(ll, user_input):
                 bg_results.append(current_node.get_value())
         current_node = current_node.get_next_node()
     return bg_results
-            
+
+def get_user_input(question, min, max):
+    user_input = input(question)
+    try:
+        user_input = int(user_input)
+    except:
+        user_input = input(f"Please, enter a valid number between {min} and {max}.")
+    else:
+        try:
+            user_input >= min and user_input <= max
+        except:
+            user_input = input(f"Please, enter a valid number between {min} and {max}.")
+    return user_input
 
 # User Input
 
@@ -134,6 +146,9 @@ while not isinstance(choice, int):
 
 input_collection.append(selected_type)
 
+
+# Displaying results
+
 print(f"So, you would like to play a {selected_type} game that takes approximately {playing_time} minutes.\nThere are {num_players} people playing and the youngest player is {youngest} years old.")
 print()
 print("Here are your results:")
@@ -148,6 +163,7 @@ else:
     print("You can play:")
     for game in result:
         print("*", game[0])
+    print()
 
 
 # Testing
