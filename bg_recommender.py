@@ -77,7 +77,7 @@ def filter_linked_list(ll, user_input):
         current_node = current_node.get_next_node()
     return bg_results
 
-def get_user_input(question, min, max):
+def get_numeric_user_input(question, min, max):
     user_input = input(question)
     while not isinstance(user_input, int):
         try:
@@ -85,88 +85,77 @@ def get_user_input(question, min, max):
         except:
             user_input = input(f"Please, enter a valid number between {min} and {max}.")
         else:
-            try:
-                user_input in range(min, max+1) == True
-            except:
-                user_input = input(f"Please, enter a valid number between {min} and {max}.")
+            if user_input in range(min, max+1):
+                return user_input
+            user_input = input(f"Please, enter a valid number between {min} and {max}.")
     return user_input
 
-# User Input
+def collecting_all_user_input():
+    print("\nWelcome to the boardgame recommender!\n\n\nI need some data to give you a playing recommendation:")
+    input_collection = list()
 
-print("Welcome to the boardgame recommender!")
-input_collection = list()
+    num_players_param = ("\nHow many people will be playing?\n> ", 1, 9)
+    num_players = get_numeric_user_input(*num_players_param)
+    input_collection.append(num_players)
 
-num_players = input("\nI need some data to give you a playing recommendation:\nHow many people will be playing?\n> ")
-while len(num_players) != 1:
-    num_players = input("\nPlease, enter a number between 1 and 9.\n> ")
-while not isinstance(num_players, int):
-    if num_players in "123456789":
-        num_players = int(num_players)
-    else:
-        num_players = input("\nPlease, enter a valid number between 1 and 9.\n> ")
-input_collection.append(num_players)
+    youngest_player_param = ("\nHow old is the youngest player?\n> ", 1, 99)
+    youngest_player = get_numeric_user_input(*youngest_player_param)
+    input_collection.append(youngest_player)
 
-youngest = input("\nHow old is the youngest player?\n> ")
-while not isinstance(youngest, int):
-    try:
-        youngest = int(youngest)
-    except:
-        youngest = input("\nPlease enter a valid number between 1 and 99.\n> ")
-input_collection.append(youngest)
+    playing_time_param = ("\nHow long should the game approximately take to play?\nPlease enter the time in minutes.\n> ", 5, 240)
+    playing_time = get_numeric_user_input(*playing_time_param)
+    input_collection.append(playing_time)
 
-playing_time = input("\nHow long should the game approximately take to play?\nPlease enter the time in minutes.\n> ")
-while not isinstance(playing_time, int):
-    try:
-        playing_time = int(playing_time)
-    except:
-        playing_time = input("\nPlease enter a valid number, e.g. 30 for half an hour of playing time.\n> ")
-input_collection.append(playing_time)
-
-game_type = input("\nWhat type of boardgame would you like to play? Enter the first character(s) and hit enter to have some options displayed.\n> ")
-auto_complete_options = autocomplete(game_type, boardgame_types)
-while not auto_complete_options:
-    game_type = input("Sorry, no options available for the characters you entered.\nPlease try again.\n> ")
+    game_type = input("\nWhat type of boardgame would you like to play? Enter the first character(s) and hit enter to have some options displayed.\n> ")
     auto_complete_options = autocomplete(game_type, boardgame_types)
-numbered_options = number_options(auto_complete_options)
-options_display = display_numbered_options(numbered_options)
-print(options_display) 
+    while not auto_complete_options:
+        game_type = input("Sorry, no options available for the characters you entered.\nPlease try again.\n> ")
+        auto_complete_options = autocomplete(game_type, boardgame_types)
+    numbered_options = number_options(auto_complete_options)
+    options_display = display_numbered_options(numbered_options)
+    print(options_display) 
 
-selected_type = None
-choice = input("Please, type the number next to the boardgame type you would like to play.\n> ")
-while not isinstance(choice, int):
-    try:
-        choice = int(choice)
-    except ValueError:
-        choice = input("\nPlease enter a valid number, displayed next to the desired boardgame type.\n> ")
-    else:
+    selected_type = None
+    choice = input("Please, type the number next to the boardgame type you would like to play.\n> ")
+    while not isinstance(choice, int):
         try:
-            selected_type = numbered_options[choice]
-        except KeyError:
-            choice = input("\nThis is not a valid option. Please, try again.\n> ")
+            choice = int(choice)
+        except ValueError:
+            choice = input("\nPlease enter a valid number, displayed next to the desired boardgame type.\n> ")
+        else:
+            try:
+                selected_type = numbered_options[choice]
+            except KeyError:
+                choice = input("\nThis is not a valid option. Please, try again.\n> ")
+    input_collection.append(selected_type)
+    return input_collection
 
+def display_results(all_inputs):
+    print(f"\nSo, you would like to play a {all_inputs[3]} game that takes approximately {all_inputs[2]} minutes.\nThere are {all_inputs[0]} people playing and the youngest player is {all_inputs[1]} years old.")
+    print("\nHere are your results:\n")
+    print(22 * "*")
+    result = filter_linked_list(bg_collection, all_inputs)
+    if not result:
+        print("\nSorry, no games found that fit your criteria.")
+    else:
+        print("\nYou can play:")
+        for game in result:
+            print("*", game[0])
 
-input_collection.append(selected_type)
+def start_over():
+    choice = input("\nAre you happy with your results? (y)\nIf not you can start over. (n)\n> ")
+    while choice.lower() not in ("y", "n"):
+        choice = input("\nPlease enter 'y' for yes or 'n' for no, meaning the selection process starts over.")
+    while choice.lower() != "y":
+        new_inputs = collecting_all_user_input()
+        display_results(new_inputs)
+        start_over()
+    print("\nThanks for using the Boardgame Recommender!\n\n*** HAVE FUN PLAYING! ***")
+    return
+        
 
+# Function calls
 
-# Displaying results
-
-print(f"So, you would like to play a {selected_type} game that takes approximately {playing_time} minutes.\nThere are {num_players} people playing and the youngest player is {youngest} years old.")
-print()
-print("Here are your results:")
-print()
-print(22 * "*")
-print()
-
-result = filter_linked_list(bg_collection, input_collection)
-if not result:
-    print("Sorry, no games found that fit your criteria.")
-else:
-    print("You can play:")
-    for game in result:
-        print("*", game[0])
-    print()
-
-
-# Testing
-
-
+all_inputs = collecting_all_user_input()
+display_results(all_inputs)
+start_over()
