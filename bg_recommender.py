@@ -61,13 +61,17 @@ def display_numbered_options(numbered_options):
 #print(show)
 
 
-
 # Further function definitions
 
 def check_for_criteria(value_list, user_input):
-    return (user_input[0] >= value_list[2] and user_input[0] <= value_list[3]) and (value_list[4] > user_input[2]*0.7 and value_list[4] < user_input[2]*1.3) and (user_input[1] >= value_list[5])
+    player_check = user_input[0] >= value_list[2] and user_input[0] <= value_list[3]
+    time_check = value_list[4] > user_input[2]*0.7 and value_list[4] < user_input[2]*1.3
+    age_check = user_input[1] >= value_list[5]
+    type_check = user_input[3] in value_list[1]
+    return player_check and time_check and age_check and type_check
 
 def filter_linked_list(ll, user_input):
+    print("Filtering for:", user_input)
     bg_results = list()
     current_node = ll.head_node
     while current_node:
@@ -75,6 +79,7 @@ def filter_linked_list(ll, user_input):
             if check_for_criteria(current_node.get_value(), user_input):
                 bg_results.append(current_node.get_value())
         current_node = current_node.get_next_node()
+    print("Filtered results:", bg_results)
     return bg_results
 
 def get_numeric_user_input(question, min, max):
@@ -106,10 +111,10 @@ def collecting_all_user_input():
     playing_time = get_numeric_user_input(*playing_time_param)
     input_collection.append(playing_time)
 
-    game_type = input("\nWhat type of boardgame would you like to play? Enter the first character(s) and hit enter to have some options displayed.\n> ")
+    game_type = input("\nWhat type of boardgame would you like to play? Enter the first character(s) and hit enter to have some options displayed.\nTo display all categories simply hit enter.\n> ")
     auto_complete_options = autocomplete(game_type, boardgame_types)
     while not auto_complete_options:
-        game_type = input("Sorry, no options available for the characters you entered.\nPlease try again.\n> ")
+        game_type = input("Sorry, no options available for the characters you entered.Please try again\n")
         auto_complete_options = autocomplete(game_type, boardgame_types)
     numbered_options = number_options(auto_complete_options)
     options_display = display_numbered_options(numbered_options)
