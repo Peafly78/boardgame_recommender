@@ -13,7 +13,8 @@ To do this the program collects user input on the following criteria:
 In order to narrow down the boardgame types for the user, they can make use of an autocomplete feature and simply type the first (few) characters of the category to see all the options displayed that start with these letters.
 They will then be able to select the category by typing the number displayed next to it.
 
-After collection all the input the program filters the boardgame collection against these criteria and displays the results.
+After collecting all the input the program filters the boardgame collection against these criteria and displays the results.
+Finally, the user has the option to repeat the process if they are not happy with the results.
 
 About:
 This is the final project for the "Data Structures and Algorithms" course on codecademy.com, created by Peafly_78.
