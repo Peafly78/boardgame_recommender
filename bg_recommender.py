@@ -71,7 +71,6 @@ def check_for_criteria(value_list, user_input):
     return player_check and time_check and age_check and type_check
 
 def filter_linked_list(ll, user_input):
-    print("Filtering for:", user_input)
     bg_results = list()
     current_node = ll.head_node
     while current_node:
@@ -79,7 +78,6 @@ def filter_linked_list(ll, user_input):
             if check_for_criteria(current_node.get_value(), user_input):
                 bg_results.append(current_node.get_value())
         current_node = current_node.get_next_node()
-    print("Filtered results:", bg_results)
     return bg_results
 
 def get_numeric_user_input(question, min, max):
